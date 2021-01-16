@@ -18,4 +18,5 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix'=>'api/v1'], function() use($router){
     $router->get('employees', 'EmployeeController@index');
     $router->get('employees/{id}', 'EmployeeController@employee');
+    $router->post('employees', 'EmployeeController@create');
 });

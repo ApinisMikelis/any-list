@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use App\Employee;
 
 
@@ -39,6 +40,21 @@ class EmployeeController extends Controller
         return response()->json($employee);
     }
 
+    public function create(Request $request) {
+
+        $this->validate($request, [
+            'fname' => 'required',
+            'lname' => 'required',
+            'title' => 'required',
+            'email' => 'required'
+        ]);
+
+        $body = json_decode($request->getContent());
+        $employee = new Employee(com_create_guid(), $body->email, $body->fname, $body->lname, $body->title);
+
+        return response()->json(EmployeeController::addEmployee($employee));
+    }
+
     private static function getEmployeeById($id){
         foreach ( EmployeeController::$employees as $element ) {
             if ( $id == $element->id ) {
@@ -48,4 +64,10 @@ class EmployeeController extends Controller
 
         return null;
     }
+
+    private static function addEmployee(Employee $employee){
+        array_push(EmployeeController::$employees, $employee);
+        return $employee;
+    }
+
 }
