@@ -55,6 +55,23 @@ class EmployeeController extends Controller
         return response()->json(EmployeeController::addEmployee($employee));
     }
 
+    public function update($id, Request $request) {
+
+        $this->validate($request, [
+            'fname' => 'required',
+            'lname' => 'required',
+            'title' => 'required',
+            'email' => 'required'
+        ]);
+
+        $body = json_decode($request->getContent());
+
+        $employee = $this->getEmployeeById($id);
+        $employee->update($body);
+
+        return  EmployeeController::$employees;
+    }
+
     private static function getEmployeeById($id){
         foreach ( EmployeeController::$employees as $element ) {
             if ( $id == $element->id ) {

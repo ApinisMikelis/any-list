@@ -18,4 +18,19 @@ class Employee
         $this->title = $title;
     }
 
+    public function update($employee) {
+        $this->__set('email', $employee->email);
+        $this->__set('fname', $employee->fname);
+        $this->__set('lname', $employee->lname);
+        $this->__set('title', $employee->title);
+    }
+
+    public function __set($property, $value) {
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        }
+    
+        return $this;
+    }
+
 }
