@@ -20,4 +20,5 @@ $router->group(['prefix'=>'api/v1'], function() use($router){
     $router->get('employees/{id}', 'EmployeeController@employee');
     $router->post('employees', 'EmployeeController@create');
     $router->put('employees/{id}', 'EmployeeController@update');
+    $router->delete('employees/{id}', 'EmployeeController@delete');
 });

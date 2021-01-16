@@ -72,10 +72,33 @@ class EmployeeController extends Controller
         return  EmployeeController::$employees;
     }
 
+    public function delete($id) {
+
+        $index = $this->getEmployeeIndexById($id);
+
+        if($index >= 0) {
+            unset(EmployeeController::$employees[$index]);
+            return response('Deleted');
+        }
+
+        return response('Delete operation failed');
+
+    }
+
     private static function getEmployeeById($id){
         foreach ( EmployeeController::$employees as $element ) {
             if ( $id == $element->id ) {
                 return $element;
+            }
+        }
+
+        return null;
+    }
+
+    private static function getEmployeeIndexById($id){
+        foreach ( EmployeeController::$employees as $key => $element ) {
+            if ( $id == $element->id ) {
+                return $key;
             }
         }
 
