@@ -15,7 +15,7 @@ class EmployeeController extends Controller
         $employeesJson = json_decode(file_get_contents($jsonPath), true);
         $employeesArr = array();
 
-        foreach($employeesJson as $employee) {
+        foreach ( $employeesJson as $employee ) {
             array_push($employeesArr, new Employee(
                 $employee['id'],
                 $employee['email'],
@@ -30,5 +30,22 @@ class EmployeeController extends Controller
 
     public function index() {
         return response()->json(EmployeeController::$employees);
+    }
+
+    public function employee($id) {
+
+        $employee = $this->getEmployeeById($id);
+
+        return response()->json($employee);
+    }
+
+    private static function getEmployeeById($id){
+        foreach ( EmployeeController::$employees as $element ) {
+            if ( $id == $element->id ) {
+                return $element;
+            }
+        }
+
+        return null;
     }
 }
