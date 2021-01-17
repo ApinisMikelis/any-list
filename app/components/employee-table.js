@@ -10,13 +10,16 @@ export class EmployeeTable {
     }
 
     template(employees, container) {
+
         const table = document.createElement('table');
         
         const attributes = document.createAttribute("cellspacing");
         attributes.value = 0;
         table.setAttributeNode(attributes)
 
-        employees.forEach(employee => new EmployeeListing(employee, table));
+        employees.forEach(employee => {
+            new EmployeeListing(employee, table)
+        });
 
         container.append(table);
     }
