@@ -4,12 +4,12 @@ export class EmployeeService {
         this.httpClient = httpClient;
     }
     
-    getEmployees() {
-        return this.httpClient.get('http://localhost:8000/api/v1/employees/');
+    async getEmployees() {
+        return await this.httpClient.get('http://localhost:8000/api/v1/employees/');
     }
 
-    getEmployeeById(id) {
-        return this.httpClient.get(`http://localhost:8000/api/v1/employees/${id}`);
+    async getEmployeeById(id) {
+        return await this.httpClient.get(`http://localhost:8000/api/v1/employees/${id}`);
     }
 
 }
