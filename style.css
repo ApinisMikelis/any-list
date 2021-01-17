@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root {
+    --color-bg: #f7f7f7;
+    --color-white: #ffffff;
+    --color-gray: #f2f2f2;
+
+    --spacing: 1rem;
+    --double-spacing: 2rem;
+
+    --default-transition: all 300ms ease-in-out;
+  }
+
+body {
+    background: var(--color-bg);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#appContainer {
+    margin: 0 auto;
+    padding: var(--double-spacing);
+    max-width: 80vw;
+    background: var(--color-white);
+    border-radius: 0.5rem;
+}
+
+table tr td {
+    padding: var(--spacing) 0;
+    transition: var(--default-transition);
+}
+
+table tr:hover td {
+    cursor: pointer;
+    background: var(--color-bg);
+}
+
+table tr:not(:last-of-type) td {
+    border-bottom: 1px solid var(--color-gray);
+}
