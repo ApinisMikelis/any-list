@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import './app/css/popup.css';
+@import './app/css/table.css';
+@import './app/css/button.css';
+
 
 :root {
     --color-bg: #f7f7f7;
     --color-white: #ffffff;
     --color-gray: #f2f2f2;
+    --color-primary: #74c7b8;
+    --color-danger: #ef4f4f;
 
+    --small-spacing: 0.5rem;
     --spacing: 1rem;
     --double-spacing: 2rem;
 
@@ -22,18 +29,4 @@ body {
     max-width: 80vw;
     background: var(--color-white);
     border-radius: 0.5rem;
-}
-
-table tr td {
-    padding: var(--spacing) 0;
-    transition: var(--default-transition);
-}
-
-table tr:hover td {
-    cursor: pointer;
-    background: var(--color-bg);
-}
-
-table tr:not(:last-of-type) td {
-    border-bottom: 1px solid var(--color-gray);
 }

@@ -1,0 +1,13 @@
+.btn {
+    padding: var(--small-spacing);
+    background: var(--color-bg);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--default-transition);
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--color-gray);
+}

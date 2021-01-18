@@ -1,0 +1,13 @@
+table tr td {
+    padding: var(--spacing) 0;
+    transition: var(--default-transition);
+}
+
+table tr:hover td {
+    cursor: pointer;
+    background: var(--color-bg);
+}
+
+table tr:not(:last-of-type) td {
+    border-bottom: 1px solid var(--color-gray);
+}
