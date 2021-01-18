@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Employee;
+use \Cache;
 
 
 class EmployeeController extends Controller
@@ -24,13 +25,25 @@ class EmployeeController extends Controller
                 $employee['lname'],
                 $employee['title']
             ));
+
         }
 
-        EmployeeController::$employees = $employeesArr;
+        if (!Cache::has('employees')){
+            Cache::put('employees', $employeesArr, 60);
+            
+            Cache::remember('employees', 60, function() {
+                return $employeesArr;
+            });
+        }
+
+
+        EmployeeController::$employees = Cache::get('employees');
     }
 
     public function index() {
-        return response()->json(EmployeeController::$employees);
+        $employees = Cache::get('employees');
+
+        return response()->json( $employees);
     }
 
     public function employee($id) {
@@ -74,14 +87,26 @@ class EmployeeController extends Controller
 
     public function delete($id) {
 
-        $index = $this->getEmployeeIndexById($id);
+        $employees = Cache::get('employees');
+        $index = $this->getEmployeeIndexById($id, $employees);
 
         if($index >= 0) {
-            unset(EmployeeController::$employees[$index]);
-            return response('Deleted');
+            
+            Cache::forget('employees');
+            unset($employees[$index]);
+
+            $refreshed_employees = array();
+
+            foreach($employees as $employee) {
+                array_push($refreshed_employees, $employee);
+            }
+            
+            Cache::put('employees', $refreshed_employees, 60);
+
+            return 'Deleted';
         }
 
-        return response('Delete operation failed');
+        return 'Delete operation failed';
 
     }
 
@@ -95,8 +120,8 @@ class EmployeeController extends Controller
         return null;
     }
 
-    private static function getEmployeeIndexById($id){
-        foreach ( EmployeeController::$employees as $key => $element ) {
+    private static function getEmployeeIndexById($id, $employees){
+        foreach ( $employees as $key => $element ) {
             if ( $id == $element->id ) {
                 return $key;
             }
