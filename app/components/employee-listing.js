@@ -1,16 +1,19 @@
+import elementCreator from '../services/element-creator-service.js';
 import { EmployeeActions } from "./employee-actions.js";
 import { Employee } from "../models/employee.js";
 
 
 export class EmployeeListing {
 
-    constructor(employee, container) {
+    constructor(employee, container, popupService) {
         this.employee = new Employee(employee);
+        this.popupService = popupService;
+
         container.append(this.template());
     }
 
     template() {
-        const tableRow = document.createElement('tr');
+        const tableRow = elementCreator.createElement('tr');
 
         for (const property in this.employee) {
             tableRow.appendChild(this.createPropertyColumn(property));  
@@ -24,17 +27,12 @@ export class EmployeeListing {
     }
 
     createPropertyColumn(property) {
-        const propCol = document.createElement('td')
-        const rowContent = document.createTextNode(this.employee[property]);
-
-        propCol.appendChild(rowContent);
-
-        return propCol;
+        return elementCreator.createElement('td', this.employee[property])
     }
 
     createActionsColumn() {
-        const actionsColumn = document.createElement('td');
-        const actions = new EmployeeActions(this.employee);
+        const actionsColumn = elementCreator.createElement('td')
+        const actions = new EmployeeActions(this.employee, this.popupService);
         
         actionsColumn.appendChild(actions.getEditButton());
         actionsColumn.appendChild(actions.getDeleteButton());

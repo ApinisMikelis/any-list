@@ -1,36 +1,30 @@
+import elementCreator from '../services/element-creator-service.js';
+
+
 export class EmployeeActions {
 
-    constructor(employee) {
+    constructor(employee, popupService) {
         this.employee = employee;
+        this.popupService = popupService;;
     }
 
     getDeleteButton() {
-        return this.createButton('❌', this.delete);
+        return this.createButton('🗑️', this.popupService.openDeletePopup, this.employee.id);
     }
 
     getEditButton() {
         return this.createButton('✏️', this.edit);
     }
 
-    createButton(text, eventHandler) {
-        const button = document.createElement('a');
-        const buttonText = document.createTextNode(text);
-        button.appendChild(buttonText);
-        button.addEventListener("click", () => eventHandler(this.employee));
+    createButton(text, eventHandler, params) {
+        const btn = elementCreator.createElement('a', text, [['class', 'btn'], ['href', `#${this.employee.id}`]]);
+        btn.addEventListener("click", () => eventHandler(params));
 
-        const attr = document.createAttribute('class');
-        attr.value = 'btn';
-        button.setAttributeNode(attr)
-
-        return button;
+        return btn;
     }
 
-    edit(employee) {
-        console.log(`Edit: ${employee.id}`);
-    }
-
-    delete(employee) {
-        console.log(`Delete: ${employee.id}`);
+    edit() {
+        console.log(`Edit: ${this.employee.id}`);
     }
 
 }
