@@ -10,4 +10,13 @@ export class HttpService {
         );
     }
 
+    async delete(endpoint) {
+        return await fetch(endpoint, {
+            method: 'DELETE',
+
+        }).then(
+            response => response.ok ? response.json() : Promise.reject(response),
+        );
+    }
+
 }

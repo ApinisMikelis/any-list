@@ -7,7 +7,7 @@ const appContainer = document.getElementById('appContainer');
 
 const httpService = new HttpService();
 const employeeService = new EmployeeService(httpService);
-const popupService = new PopupService(appContainer);
+const popupService = new PopupService(appContainer, employeeService);
 
 appContainer.append(
     new EmployeeTable(employeeService, appContainer, popupService)

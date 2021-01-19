@@ -12,4 +12,8 @@ export class EmployeeService {
         return await this.httpClient.get(`http://localhost:8000/api/v1/employees/${id}`);
     }
 
+    async deleteEmployee(id) {
+        return await this.httpClient.delete(`http://localhost:8000/api/v1/employees/${id}`);
+    }
+
 }
