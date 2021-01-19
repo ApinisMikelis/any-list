@@ -33,8 +33,16 @@ export class PopupService {
             setTimeout(() => this.popup.remove(), 1000); 
         }
 
+        this.dispatchRemovalEvent = (employeeId) => {
+            const event = new CustomEvent('employeeRemoved', { detail: employeeId });
+            this.container.dispatchEvent(event);
+        }
+
         this.removeEmployee = () => {
-            this.employeeService.deleteEmployee(this.popupId).then(this.closePopup);
+            this.employeeService.deleteEmployee(this.popupId).then(() => {
+                this.closePopup();
+                this.dispatchRemovalEvent(this.popupId);
+            });
         }
 
     }

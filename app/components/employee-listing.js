@@ -13,7 +13,7 @@ export class EmployeeListing {
     }
 
     template() {
-        const tableRow = elementCreator.createElement('tr');
+        const tableRow = elementCreator.createElement('tr', '', [['data-id', this.employee.id]]);
 
         for (const property in this.employee) {
             tableRow.appendChild(this.createPropertyColumn(property));  
