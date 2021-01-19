@@ -54,14 +54,6 @@ class EmployeeController extends Controller
     }
 
     public function create(Request $request) {
-
-        $this->validate($request, [
-            'fname' => 'required',
-            'lname' => 'required',
-            'title' => 'required',
-            'email' => 'required'
-        ]);
-
         $body = json_decode($request->getContent());
         $employee = new Employee(com_create_guid(), $body->email, $body->fname, $body->lname, $body->title);
 
@@ -131,8 +123,18 @@ class EmployeeController extends Controller
     }
 
     private static function addEmployee(Employee $employee){
-        array_push(EmployeeController::$employees, $employee);
-        return $employee;
+        $employees = Cache::get('employees');
+        Cache::forget('employees');
+
+        $refreshed_employees = array($employee);
+
+        foreach($employees as $employee) {
+            array_push($refreshed_employees, $employee);
+        }
+
+        Cache::put('employees', $refreshed_employees, 60);
+
+        return $employee->id;
     }
 
 }
