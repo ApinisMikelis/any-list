@@ -20,6 +20,15 @@ export class HttpService {
         );
     }
 
+    async put(endpoint, body) {
+        return await fetch(endpoint, {
+            method: 'PUT',
+            body: JSON.stringify(body)
+        }).then(
+            response => response.ok ? response.json() : Promise.reject(response),
+        );
+    }
+
     async delete(endpoint) {
         return await fetch(endpoint, {
             method: 'DELETE',

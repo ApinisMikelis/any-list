@@ -62,19 +62,25 @@ class EmployeeController extends Controller
 
     public function update($id, Request $request) {
 
-        $this->validate($request, [
-            'fname' => 'required',
-            'lname' => 'required',
-            'title' => 'required',
-            'email' => 'required'
-        ]);
+        $employees = Cache::get('employees');
+        Cache::forget('employees');
 
+        
         $body = json_decode($request->getContent());
-
-        $employee = $this->getEmployeeById($id);
+        
+        $employee = $this->getEmployeeById($id, $employees);
         $employee->update($body);
 
-        return  EmployeeController::$employees;
+        $refreshed_employees = array($employee);
+
+        foreach($employees as $existing) {
+            array_push($refreshed_employees, $existing);
+        }
+
+        Cache::put('employees', $refreshed_employees, 60);
+
+
+        return response()->json($employee->id);
     }
 
     public function delete($id) {
@@ -102,10 +108,10 @@ class EmployeeController extends Controller
 
     }
 
-    private static function getEmployeeById($id){
-        foreach ( EmployeeController::$employees as $element ) {
-            if ( $id == $element->id ) {
-                return $element;
+    private static function getEmployeeById($id, $employees){
+        foreach ( $employees as $employee ) {
+            if ( $id == $employee->id ) {
+                return $employee;
             }
         }
 
