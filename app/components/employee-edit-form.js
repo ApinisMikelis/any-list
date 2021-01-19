@@ -1,12 +1,14 @@
 import elementCreator from '../services/element-creator-service.js';
 
 
-export class EmployeeForm {
+export class EmployeeEditForm {
 
-    constructor(employeeService, container) {
+    constructor(employee, employeeService, container, callback) {
+        this.container = container;
+        this.employee = employee;
         this.employeeService = employeeService;
-
         this.template(container);
+        this.callback = callback;
     }
 
     template(container) {
@@ -37,21 +39,28 @@ export class EmployeeForm {
             ['placeholder', 'Title']
         ]);
 
-        const submitBtn = elementCreator.createElement('a', 'Add', [['class', 'btn submit']]);
+        fnameInput.value = this.employee.fname;
+        lnameInput.value = this.employee.lname;
+        emailInput.value = this.employee.email;
+        titleInput.value = this.employee.title;
+
+        const submitBtn = elementCreator.createElement('a', 'Edit', [['class', 'btn submit']]);
 
         const callback = () => {
-            const newEmployee = {
-                fname:  document.querySelector(`input[name='fname']`).value,
-                lname: document.querySelector(`input[name='lname']`).value,
-                email: document.querySelector(`input[name='email']`).value,
-                title: document.querySelector(`input[name='title']`).value
+            const editedEmployee = {
+                id: this.employee.id,
+                fname:  document.querySelector(`.popup input[name='fname']`).value,
+                lname: document.querySelector(`.popup input[name='lname']`).value,
+                email: document.querySelector(`.popup input[name='email']`).value,
+                title: document.querySelector(`.popup input[name='title']`).value
             };
             
-            this.employeeService.addEmployee(newEmployee).then(id => {
-                const employee = newEmployee;
-                employee.id = id;
-                const event = new CustomEvent('employeeAdded', { detail: employee });
-                container.dispatchEvent(event);
+            this.employeeService.editEmployee(editedEmployee).then(() => {
+                const event = new CustomEvent('employeeEdited', { detail: editedEmployee });
+                const appContainer = document.getElementById('appContainer');
+
+                appContainer.dispatchEvent(event);
+                this.callback();
             });
         }
 

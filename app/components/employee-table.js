@@ -21,6 +21,14 @@ export class EmployeeTable {
 
         }, false);
 
+        container.addEventListener('employeeEdited', function (e) {
+            const table = document.querySelector('table');
+            const oldData = document.querySelector(`tr[data-id='${e.detail.id}`);
+            const parent = oldData.parentNode;
+
+            parent.replaceChild(new EmployeeListing(e.detail, table, popupService, false), oldData)
+        }, false);
+
     }
 
     template(employees, container, popupService) {

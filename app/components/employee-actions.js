@@ -13,7 +13,7 @@ export class EmployeeActions {
     }
 
     getEditButton() {
-        return this.createButton('✏️', this.edit);
+        return this.createButton('✏️', this.popupService.openEditPopup, this.employee);
     }
 
     createButton(text, eventHandler, params) {
@@ -21,10 +21,6 @@ export class EmployeeActions {
         btn.addEventListener("click", () => eventHandler(params));
 
         return btn;
-    }
-
-    edit() {
-        console.log(`Edit: ${this.employee.id}`);
     }
 
 }

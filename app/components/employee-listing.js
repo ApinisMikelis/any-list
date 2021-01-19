@@ -5,11 +5,15 @@ import { Employee } from "../models/employee.js";
 
 export class EmployeeListing {
 
-    constructor(employee, container, popupService) {
+    constructor(employee, container, popupService, prepend = true) {
         this.employee = new Employee(employee);
         this.popupService = popupService;
 
-        container.prepend(this.template());
+        if(prepend) {
+            container.prepend(this.template());
+        } else {
+            return this.template();
+        }
     }
 
     template() {

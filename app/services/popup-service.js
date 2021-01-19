@@ -1,4 +1,5 @@
 import elementCreator from './element-creator-service.js';
+import { EmployeeEditForm } from '../components/employee-edit-form.js';
 
 
 export class PopupService {
@@ -25,6 +26,22 @@ export class PopupService {
 
             closeBtn.addEventListener("click", this.closePopup);
             deleteBtn.addEventListener("click", this.removeEmployee);
+
+            this.container.appendChild(this.popup);
+        }
+
+        this.openEditPopup = (employee) => {
+            this.popupId = employee.id;
+
+            this.popup = elementCreator.createElement('div', '', [['id', this.popupId], ['class', 'overlay']]);
+            const popupContent = elementCreator.createElement('div', '', [['class', 'popup']]);
+            const closeBtn = elementCreator.createElement('a', '❌', [['class', 'close'], ['href', '#']]);
+
+            new EmployeeEditForm(employee, this.employeeService, popupContent, this.closePopup);
+            this.popup.appendChild(popupContent);
+            popupContent.appendChild(closeBtn);
+
+            closeBtn.addEventListener("click", this.closePopup);
 
             this.container.appendChild(this.popup);
         }
