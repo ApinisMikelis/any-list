@@ -103,7 +103,7 @@ class EmployeeController extends Controller
             
             Cache::put('employees', $refreshed_employees, 60);
 
-            return 'Deleted';
+            return response()->json('Deleted');
         }
 
         return 'Delete operation failed';
