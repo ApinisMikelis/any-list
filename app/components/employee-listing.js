@@ -9,7 +9,7 @@ export class EmployeeListing {
         this.employee = new Employee(employee);
         this.popupService = popupService;
 
-        container.append(this.template());
+        container.prepend(this.template());
     }
 
     template() {

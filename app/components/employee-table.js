@@ -15,6 +15,12 @@ export class EmployeeTable {
             domService.removeFromDom(e.detail);
         }, false);
 
+        container.addEventListener('employeeAdded', function (e) {
+            const table = document.querySelector('table');
+            new EmployeeListing(e.detail, table, popupService);
+
+        }, false);
+
     }
 
     template(employees, container, popupService) {
