@@ -10,10 +10,5 @@ const httpService = new HttpService();
 const employeeService = new EmployeeService(httpService);
 const popupService = new PopupService(appContainer, employeeService);
 
-appContainer.append(
-    new EmployeeForm(employeeService, appContainer)
-);
-
-appContainer.append(
-    new EmployeeTable(employeeService, appContainer, popupService)
-);
+new EmployeeForm(employeeService, appContainer)
+new EmployeeTable(employeeService, appContainer, popupService)
