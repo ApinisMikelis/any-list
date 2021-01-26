@@ -1,0 +1,64 @@
+.new-employee-form {
+    display: grid;
+    grid-column-gap: var(--small-spacing);
+    grid-row-gap: var(--small-spacing);
+}
+
+form {
+    padding: var(--double-spacing);
+}
+
+form input {
+    background: var(--color-gray);
+    padding: var(--small-spacing) var(--spacing);
+    border: none;
+    border-radius: .3rem;
+}
+
+form input[name='fname'] {
+    grid-area: fname;
+}
+
+form input[name='lname'] {
+    grid-area: lname;
+}
+
+form input[name='email'] {
+    grid-area: email;
+}
+
+form input[name='title'] {
+    grid-area: title;
+}
+
+form .submit {
+    grid-area: submit;
+    text-align: center;
+}
+
+@media screen and (min-width: 1080px) {
+    .new-employee-form {
+        grid-template-columns: 3fr 3fr 3fr 3fr 1fr;
+        grid-template-areas: 'fname lname email title submit';
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1079px) {
+    .new-employee-form {
+        grid-template-columns: 3fr 3fr;
+        grid-template-areas: 'fname lname'
+                             'email title'
+                             '. submit';
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .new-employee-form {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'fname'
+                             'lname'
+                             'email'
+                             'title'
+                             'submit';
+    }
+}

@@ -1,5 +1,9 @@
+table {
+    
+}
+
 table tr td {
-    padding: var(--spacing) 0;
+    padding: var(--spacing) var(--small-spacing);
     transition: var(--default-transition);
 }
 

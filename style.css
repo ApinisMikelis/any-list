@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 @import './app/css/popup.css';
+@import './app/css/form.css';
 @import './app/css/table.css';
 @import './app/css/button.css';
 
@@ -24,9 +25,9 @@ body {
 }
 
 #appContainer {
-    margin: 0 auto;
-    padding: var(--double-spacing);
+    margin: 4rem auto;
     max-width: 80vw;
     background: var(--color-white);
+    box-shadow: 0 0 20px #ccc;
     border-radius: 0.5rem;
 }

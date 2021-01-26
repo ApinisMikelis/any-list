@@ -11,7 +11,7 @@ export class EmployeeForm {
 
     template(container) {
 
-        const form = elementCreator.createElement('form');
+        const form = elementCreator.createElement('form', '', [['class', 'new-employee-form']]);
 
         const fnameInput = elementCreator.createElement('input', '', [
             ['type', 'text'],
